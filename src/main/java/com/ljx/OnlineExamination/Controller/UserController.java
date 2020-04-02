@@ -11,27 +11,40 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/user")
-public class LoginController {
-    private final UserService US;
+public class UserController {
+    private final UserService userService;
 
     @Autowired
-    public LoginController(UserService US
+    public UserController(UserService userService
                               ) {
 
-        this.US = US;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public ServerResponse<User> login(@RequestParam("username") String username,
+    public ServerResponse<User> login(@RequestParam("phone") String phone,
                                       @RequestParam("password") String password,
                                       HttpSession session
                       ){
-        ServerResponse<User> response = US.login(username, password);
+        ServerResponse<User> response = userService.login(phone, password);
         if (response.isSuccess()) {
             session.setAttribute(Const.CURRENT_USER, response.getData());
         }
         return response;
     }
+
+    @PostMapping("/register")
+    @ResponseBody
+    public ServerResponse<User> register(User user,
+                                      HttpSession session
+    ){
+        ServerResponse<User> response = userService.register(user);
+        if (response.isSuccess()) {
+            session.setAttribute(Const.CURRENT_USER, response.getData());
+        }
+        return response;
+    }
+
 }
 

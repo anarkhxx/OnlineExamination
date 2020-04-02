@@ -1,6 +1,6 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: OnlineTest
     password: qwe123
     url: jdbc:mysql://139.224.61.12/OnlineTest?characterEncoding=utf-8&useSSL=false&&serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull

@@ -8,5 +8,7 @@ import com.ljx.OnlineExamination.pojo.User;
  */
 public interface UserService {
 
-    ServerResponse<User> login(String username, String password);
+    ServerResponse<User> login(String phone, String password);
+
+    ServerResponse<User> register(User user);
 }
