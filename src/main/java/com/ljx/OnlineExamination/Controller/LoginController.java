@@ -1,6 +1,6 @@
 package com.ljx.OnlineExamination.Controller;
 
-import com.ljx.OnlineExamination.Service.userService;
+import com.ljx.OnlineExamination.Service.UserService;
 import com.ljx.OnlineExamination.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/user")
 public class LoginController {
-    private final userService US;
+    private final UserService US;
 
     @Autowired
-    public LoginController(userService US
+    public LoginController(UserService US
                               ) {
 
         this.US = US;

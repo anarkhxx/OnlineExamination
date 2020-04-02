@@ -6,7 +6,7 @@ import com.ljx.OnlineExamination.pojo.User;
 /**
  * @author ljx
  */
-public interface userService {
+public interface UserService {
 
     ServerResponse<User> login(String username, String password);
 }
