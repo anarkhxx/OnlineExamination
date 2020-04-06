@@ -16,6 +16,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String username;
+    private String pwd;
     private String phone;
-    private String password;
+    private String email;
+    private String name;
+    private String identification;
+    private String sex;
+    private boolean islock;
+    private String vfcode;
+
+
 }

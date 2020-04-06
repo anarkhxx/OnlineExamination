@@ -10,5 +10,9 @@ public interface UserService {
 
     ServerResponse<User> login(String phone, String password);
 
-    ServerResponse<User> register(User user);
+    ServerResponse<User> register(String phone,String vfcode);
+
+    ServerResponse<User> message(String phone, String password);
+
+    ServerResponse<User> vfphone(String phone);
 }

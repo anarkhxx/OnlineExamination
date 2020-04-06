@@ -10,7 +10,7 @@ import com.ljx.OnlineExamination.common.Const;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("api/user")
 public class UserController {
     private final UserService userService;
 
@@ -36,15 +36,43 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
-    public ServerResponse<User> register(User user,
+    public ServerResponse<User> register(String phone,
+                                      String vfcode,
                                       HttpSession session
     ){
-        ServerResponse<User> response = userService.register(user);
+        ServerResponse<User> response = userService.register(phone,vfcode);
         if (response.isSuccess()) {
             session.setAttribute(Const.CURRENT_USER, response.getData());
         }
         return response;
     }
+
+    @PostMapping("/message")
+    @ResponseBody
+    public ServerResponse<User> message(String phone,
+                                         String password,
+                                         HttpSession session
+    ){
+        ServerResponse<User> response = userService.message(phone,password);
+        if (response.isSuccess()) {
+            session.setAttribute(Const.CURRENT_USER, response.getData());
+        }
+        return response;
+    }
+
+    @PostMapping("/vfphone")
+    @ResponseBody
+    public ServerResponse<User> vfphone(String phone,
+                                        HttpSession session
+    ){
+        ServerResponse<User> response = userService.vfphone(phone);
+        if (response.isSuccess()) {
+            session.setAttribute(Const.CURRENT_USER, response.getData());
+        }
+        return response;
+    }
+
+
 
 }
 

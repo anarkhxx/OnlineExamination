@@ -18,3 +18,4 @@ server:
   servlet:
     session:
       timeout: -1
+  port: 8083
