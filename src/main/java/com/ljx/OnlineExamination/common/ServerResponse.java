@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * 服务响应对象，作为JSON对象返回
  * 忽略值为null的字段
- * @author ljx
+ * @author zjxjwxk
  * @param <T>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)

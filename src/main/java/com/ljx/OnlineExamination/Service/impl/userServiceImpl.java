@@ -44,49 +44,14 @@ public class userServiceImpl implements UserService {
     }
 
     @Override
-    public ServerResponse<User> register(String phone,String vfcode) {
-        User user=userRepository.findByPhone(phone);
-        String code=user.getVfcode();
-        if (!vfcode.equals(code)){
-            return ServerResponse.createByErrorMessage("验证码错误");
-        }
+    public ServerResponse<User> register(String phone,String password) {
+        User user=new User();
+        user.setPhone(phone);
+        user.setPwd(MD5Util.MD5EncodeUtf8(password));
+        userRepository.save(user);
         return ServerResponse.createBySuccessMessage("注册成功");
     }
 
-    @Override
-    public ServerResponse<User> message(String phone,String password) {
-        ZhenziSmsClient client = new ZhenziSmsClient("https://sms_developer.zhenzikj.com", "100880","c20ca481-2a39-4863-94d3-0fc00d395e79");
-        Map<String, String> params = new HashMap<String, String>();
-        String code=GetRandomCode();
-        params.put("message", "验证码为:"+code);
-        params.put("number", phone);
-        JSONObject json = null;
-        try {
-
-            String result = client.send(params);
-            json = JSONObject.parseObject(result);
-            if (json.getString("code").equals("0")){
-                User user=new User();
-                user.setPhone(phone);
-                user.setPwd(MD5Util.MD5EncodeUtf8(password));
-                user.setVfcode(code);
-                userRepository.save(user);
-            }
-        }catch (Exception e){
-           e.printStackTrace();
-        }
-
-        return ServerResponse.createBySuccessMessage("发送验证码成功");
-    }
-
-    public static String GetRandomCode() {
-        StringBuilder str = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 6; i++) {
-            str.append(random.nextInt(10));
-        }
-        return str.toString();
-    }
 
     @Override
     public ServerResponse<User> vfphone(String phone) {
