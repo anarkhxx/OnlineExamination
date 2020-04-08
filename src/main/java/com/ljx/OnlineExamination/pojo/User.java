@@ -24,6 +24,7 @@ public class User {
     private String identification;
     private String sex;
     private boolean islock;
+    private Integer roletype;
 
 
 }
