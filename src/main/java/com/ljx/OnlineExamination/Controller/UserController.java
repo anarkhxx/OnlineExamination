@@ -42,6 +42,18 @@ public class UserController {
         return response;
     }
 
+    @PostMapping("/loginByPhone")
+    @ResponseBody
+    public ServerResponse<User> loginByPhone(String vfcode,
+                                      HttpSession session
+    ){
+        JSONObject userCode = (JSONObject)session.getAttribute("code");
+        if(!vfcode.equals(userCode.getString("code"))){
+            return  ServerResponse.createByErrorMessage("验证码错误");
+        }
+        return ServerResponse.createBySuccessMessage("登陆成功");
+    }
+
     @PostMapping("/getCode")
     @ResponseBody
     public ServerResponse<User> getCode(String phone,

@@ -26,5 +26,4 @@ public class User {
     private boolean islock;
     private Integer roletype;
 
-
 }

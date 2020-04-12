@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ManagerRepository  extends JpaRepository<Manager,Integer> {
+
     Integer countByUsername(String username);
+
     Manager findByUsernameAndPwd(String username, String password);
 }

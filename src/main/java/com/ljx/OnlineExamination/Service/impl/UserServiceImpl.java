@@ -7,7 +7,6 @@ import com.ljx.OnlineExamination.Service.UserService;
 import com.ljx.OnlineExamination.common.ServerResponse;
 import com.ljx.OnlineExamination.pojo.User;
 import com.ljx.OnlineExamination.utils.MD5Util;
-import com.zhenzi.sms.ZhenziSmsClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +19,10 @@ import java.util.Random;
  * @author ljx
  */
 @Service("userService")
-public class userServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Autowired
-    public userServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
 
     }
