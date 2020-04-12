@@ -62,7 +62,7 @@ public class userServiceImpl implements UserService {
      @Override
      public ServerResponse<User> modifyUser(UserModifyReq userModifyReq){
         User user2 = new User();
-        user2.setId(userModifyReq.getId());
+        user2.setPhone(userModifyReq.getPhone());
         user2.setUsername(userModifyReq.getUsername());
         user2.setEmail(userModifyReq.getEmail());
         user2.setName(userModifyReq.getName());
@@ -71,11 +71,12 @@ public class userServiceImpl implements UserService {
         User user = new User();
         // 从数据库中获取对象
         User original =new User();
-        original = userRepository.findById(user2.getId()).orElse(new User());;
+        original = userRepository.findByPhone(user2.getPhone());;
         // 复制想要更改的字段值
         BeanUtils.copyProperties(user2, original, UpdateUtil.getNullPropertyNames(user2));
         // 更新操作
         user = userRepository.save(original);
+        user.setPwd(null);
         return ServerResponse.createBySuccess("修改成功", user);
     }
 }

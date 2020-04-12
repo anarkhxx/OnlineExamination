@@ -10,10 +10,21 @@ import java.io.Serializable;
 
 @Data
 public class UserModifyReq implements Serializable {
-    private Integer id;
+    //phone
+    private String phone;
+
+    //用户名
     private String username;
+
+    //邮箱
     private String email;
+
+    //真实姓名
     private String name;
+
+    //身份证号
     private String identification;
+
+    //性别
     private String sex;
 }
