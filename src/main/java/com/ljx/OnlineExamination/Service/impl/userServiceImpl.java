@@ -1,19 +1,16 @@
 package com.ljx.OnlineExamination.Service.impl;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.ljx.OnlineExamination.Repository.UserRepository;
 import com.ljx.OnlineExamination.Service.UserService;
 import com.ljx.OnlineExamination.common.ServerResponse;
 import com.ljx.OnlineExamination.pojo.User;
+import com.ljx.OnlineExamination.req.UserModifyReq;
 import com.ljx.OnlineExamination.utils.MD5Util;
-import com.zhenzi.sms.ZhenziSmsClient;
+import com.ljx.OnlineExamination.utils.UpdateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 
 /**
@@ -60,5 +57,25 @@ public class userServiceImpl implements UserService {
             return ServerResponse.createByErrorMessage("该手机号已被注册");
         }
         return ServerResponse.createBySuccessMessage("该手机号未被注册");
+    }
+
+     @Override
+     public ServerResponse<User> modifyUser(UserModifyReq userModifyReq){
+        User user2 = new User();
+        user2.setId(userModifyReq.getId());
+        user2.setUsername(userModifyReq.getUsername());
+        user2.setEmail(userModifyReq.getEmail());
+        user2.setName(userModifyReq.getName());
+        user2.setIdentification(userModifyReq.getIdentification());
+        user2.setSex(userModifyReq.getSex());
+        User user = new User();
+        // 从数据库中获取对象
+        User original =new User();
+        original = userRepository.findById(user2.getId()).orElse(new User());;
+        // 复制想要更改的字段值
+        BeanUtils.copyProperties(user2, original, UpdateUtil.getNullPropertyNames(user2));
+        // 更新操作
+        user = userRepository.save(original);
+        return ServerResponse.createBySuccess("修改成功", user);
     }
 }
