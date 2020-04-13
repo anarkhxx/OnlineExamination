@@ -30,8 +30,8 @@ public class QuestionController {
                                         @RequestParam(defaultValue = "3") Integer pageSize,
                                         HttpSession session
     ){
-        Question question = (Question) session.getAttribute(Const.CURRENT_USER);
-        if (question == null) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
         }
         return questionService.getAllQuestion(pageNumber, pageSize);
