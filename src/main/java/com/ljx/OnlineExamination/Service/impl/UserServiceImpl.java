@@ -1,6 +1,7 @@
 package com.ljx.OnlineExamination.Service.impl;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.ljx.OnlineExamination.Repository.UserRepository;
 import com.ljx.OnlineExamination.Service.UserService;
 import com.ljx.OnlineExamination.common.ServerResponse;
@@ -12,15 +13,19 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 
 /**
  * @author ljx
  */
 @Service("userService")
-public class userServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Autowired
-    public userServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
 
     }
