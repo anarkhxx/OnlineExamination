@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ljx.OnlineExamination.Repository.UserRepository;
 import com.ljx.OnlineExamination.Service.UserService;
 import com.ljx.OnlineExamination.pojo.User;
+import com.ljx.OnlineExamination.req.UserModifyReq;
 import com.zhenzi.sms.ZhenziSmsClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -111,6 +112,18 @@ public class UserController {
         return response;
     }
 
+    //个人信息填写、修改 按id
+    @PostMapping("/modify")
+    @ResponseBody
+    public ServerResponse<User> modify(UserModifyReq userModifyReq,
+                                        HttpSession session
+    ){
+        ServerResponse<User> response = userService.modifyUser(userModifyReq);
+        if (response.isSuccess()) {
+            session.setAttribute(Const.CURRENT_USER, response.getData());
+        }
+        return response;
+    }
 
 
 }
