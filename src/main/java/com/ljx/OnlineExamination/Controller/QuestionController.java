@@ -6,6 +6,7 @@ import com.ljx.OnlineExamination.common.ResponseCode;
 import com.ljx.OnlineExamination.common.ServerResponse;
 import com.ljx.OnlineExamination.pojo.Question;
 import com.ljx.OnlineExamination.pojo.User;
+import com.ljx.OnlineExamination.req.QueryQuestionReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,21 @@ public class QuestionController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
         }
         return questionService.getAllQuestion(pageNumber, pageSize);
+    }
+
+    @PostMapping("/condition")
+    @ResponseBody
+    public ServerResponse<Question> getAllQuestion(
+            QueryQuestionReq queryQuestionReq,
+            HttpSession session
+    ){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
+        }
+
+        if(queryQuestionReq==null) queryQuestionReq = new QueryQuestionReq();
+        return questionService.getQuestion(queryQuestionReq);
     }
 
 }
