@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service("QuestionService")
@@ -50,9 +52,28 @@ public class QuestionServiceImpl implements QuestionService {
     public ServerResponse getQuestion(QueryQuestionReq queryQuestionReq) {
         Integer pageNumber = queryQuestionReq.getPageNumber();
         Integer pageSize = queryQuestionReq.getPageSize();
-        Integer typeid = queryQuestionReq.getTypeid();
-        Integer difflevel = queryQuestionReq.getDifflevel();
-        Integer labelid = queryQuestionReq.getLabelid();
+        List<Integer> typeidList = new ArrayList<Integer>();
+        List<Integer> difflevelList = new ArrayList<Integer>();
+        List<Integer> labelidList = new ArrayList<Integer>();
+
+
+        if(queryQuestionReq.getTypeid() != null )
+        {
+            for(String s : queryQuestionReq.getTypeid()){
+                typeidList.add(Integer.parseInt(s));
+            }
+        }
+
+
+        for(String s : queryQuestionReq.getDifflevel()){
+            difflevelList.add(Integer.parseInt(s));
+
+        }
+
+        for(String s : queryQuestionReq.getLabelid()){
+            labelidList.add(Integer.parseInt(s));
+        }
+
 
         //PageRequest
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
@@ -68,18 +89,18 @@ public class QuestionServiceImpl implements QuestionService {
                 //root.<String>get("typeid").in(typeid))返回一个Predicate对象，相当于查询条件 'typeid in (typeid)'
                 //使用CriteriaBuilder对象（cb）的and方法 cb.and(XXX) 相当于在where查询条件后面用 ‘and XXX ’的形式拼接
                 //predicate.getExpressions().add: 增加predicate的查询语句
-                if ( typeid != null) {
+                if ( typeidList != null && typeidList.size() > 0) {
                     predicate.getExpressions().add(
-                            cb.and(root.<String>get("typeid").in(typeid)));
+                            cb.and(root.<String>get("typeid").in(typeidList)));
                 }
 
-                if (difflevel!=null) {
+                if (difflevelList!=null) {
                     predicate.getExpressions().add(
-                            cb.and(root.<String>get("difflevel").in(difflevel)));
+                            cb.and(root.<String>get("difflevel").in(difflevelList)));
                 }
-                if (labelid!=null) {
+                if (labelidList!=null) {
                     predicate.getExpressions().add(
-                            cb.and(root.<String>get("labelid").in(labelid)));
+                            cb.and(root.<String>get("labelid").in(labelidList)));
                 }
 
                 return predicate;
