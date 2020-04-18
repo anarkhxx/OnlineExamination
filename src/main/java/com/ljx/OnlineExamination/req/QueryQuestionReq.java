@@ -1,7 +1,8 @@
 package com.ljx.OnlineExamination.req;
 
 import lombok.Data;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * Created by lyy on 2020/4/13 下午10:35
@@ -14,13 +15,13 @@ public class QueryQuestionReq {
     private Integer pageSize = 3;
 
     //题类
-    private Integer typeid;
+    private List<String> typeid;
 
     //难度
-    private Integer difflevel;
+    private List<String> difflevel;
 
     //题型标签号
-    private Integer labelid;
+    private List<String> labelid;
 
 
 }
