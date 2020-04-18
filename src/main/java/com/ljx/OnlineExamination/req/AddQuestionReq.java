@@ -3,6 +3,7 @@ package com.ljx.OnlineExamination.req;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class AddQuestionReq {
         private String answer;
 
         //图片
-        private String img;
+        private MultipartFile img;
 
         //难度等级 1-5
         private Integer difflevel;

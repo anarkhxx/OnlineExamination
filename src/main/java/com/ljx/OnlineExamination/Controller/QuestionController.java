@@ -46,10 +46,10 @@ public class QuestionController {
             QueryQuestionReq queryQuestionReq,
             HttpSession session
     ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
-        }
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
+//        }
 
         if(queryQuestionReq==null) queryQuestionReq = new QueryQuestionReq();
         return questionService.getQuestion(queryQuestionReq);
@@ -62,10 +62,10 @@ public class QuestionController {
             AddQuestionReq addQuestionReq,
             HttpSession session
     ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
-        }
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
+//        }
 
         if(addQuestionReq==null) addQuestionReq = new AddQuestionReq();
         return questionService.addQuestion(addQuestionReq);

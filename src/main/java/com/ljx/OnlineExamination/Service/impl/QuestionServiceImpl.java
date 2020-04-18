@@ -15,10 +15,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,14 +67,17 @@ public class QuestionServiceImpl implements QuestionService {
             }
         }
 
+        if(queryQuestionReq.getDifflevel() != null ) {
+            for (String s : queryQuestionReq.getDifflevel()) {
+                difflevelList.add(Integer.parseInt(s));
 
-        for(String s : queryQuestionReq.getDifflevel()){
-            difflevelList.add(Integer.parseInt(s));
-
+            }
         }
 
-        for(String s : queryQuestionReq.getLabelid()){
-            labelidList.add(Integer.parseInt(s));
+        if(queryQuestionReq.getLabelid() != null ) {
+            for (String s : queryQuestionReq.getLabelid()) {
+                labelidList.add(Integer.parseInt(s));
+            }
         }
 
 
@@ -83,22 +89,16 @@ public class QuestionServiceImpl implements QuestionService {
             @Override
             public Predicate toPredicate(Root<Question> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 Predicate predicate = cb.conjunction();
-                //Predicate可以看成一个完整的查询条件，即sql查询语句中中where后面的部分
-                //root.get("typeid")表示获取数据库表中typeid这个字段
-                //.in(typeid)类似sql语法中的 IN(typeid)
-                //root.<String>get("typeid").in(typeid))返回一个Predicate对象，相当于查询条件 'typeid in (typeid)'
-                //使用CriteriaBuilder对象（cb）的and方法 cb.and(XXX) 相当于在where查询条件后面用 ‘and XXX ’的形式拼接
-                //predicate.getExpressions().add: 增加predicate的查询语句
                 if ( typeidList != null && typeidList.size() > 0) {
                     predicate.getExpressions().add(
                             cb.and(root.<String>get("typeid").in(typeidList)));
                 }
 
-                if (difflevelList!=null) {
+                if (difflevelList!=null && difflevelList.size() > 0) {
                     predicate.getExpressions().add(
                             cb.and(root.<String>get("difflevel").in(difflevelList)));
                 }
-                if (labelidList!=null) {
+                if (labelidList!=null &&  labelidList.size() > 0) {
                     predicate.getExpressions().add(
                             cb.and(root.<String>get("labelid").in(labelidList)));
                 }
@@ -125,8 +125,13 @@ public class QuestionServiceImpl implements QuestionService {
         question.setOptionc(addQuestionReq.getOptionc());
         question.setOptiond(addQuestionReq.getOptiond());
         question.setAnswer(addQuestionReq.getAnswer());
-        question.setImg(addQuestionReq.getImg());
         question.setDifflevel(addQuestionReq.getDifflevel());
+
+        //图片
+        String imgUrl = saveImg(addQuestionReq.getImg());
+        question.setImg(imgUrl);
+
+        //标签
         Label label = labelRepository.findByLabelname(addQuestionReq.getLabelname());
 
         if(label==null)
@@ -137,6 +142,8 @@ public class QuestionServiceImpl implements QuestionService {
             label = labelRepository.findByLabelname(addQuestionReq.getLabelname());
         }
         question.setLabelid(label.getLabelid());
+
+
         questionRepository.save(question);
         return ServerResponse.createBySuccessMessage("添加成功");
 
@@ -151,4 +158,51 @@ public class QuestionServiceImpl implements QuestionService {
         pageChunk.setNumberOfElements(questionPage.getNumberOfElements());
         return pageChunk;
     }
+
+
+    public String saveImg(MultipartFile file) {
+        String deposeFilesDir = "/root/img/";
+
+        // 获取附件原名
+        String fileName = file.getOriginalFilename();
+        // 如果是获取的含有路径的文件名，那么截取掉多余的，只剩下文件名和后缀名
+        int index = fileName.lastIndexOf("\\");
+        if (index > 0) {
+            fileName = fileName.substring(index + 1);
+        }
+
+        // 有后缀名时
+        if (fileName.indexOf(".") >= 0) {
+            // split()中放正则表达式; 转义字符"\\."代表 "."
+            String[] fileNameSplitArray = fileName.split("\\.");
+            // 加上random戳,防止附件重名覆盖原文件
+            fileName = fileNameSplitArray[0] + (int) (Math.random() * 100000) + "." + fileNameSplitArray[1];
+        }
+
+        // 无后缀名时
+        if (fileName.indexOf(".") < 0) {
+            // 加上random戳,防止附件重名覆盖原文件
+            fileName = fileName + (int) (Math.random() * 100000);
+        }
+
+        //File对象dest
+        File dest = new File(deposeFilesDir + fileName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            //写入
+            file.transferTo(dest);
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return deposeFilesDir + fileName;
+    }
 }
+
+
+
