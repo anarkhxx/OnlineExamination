@@ -47,6 +47,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerResponse<User> register(String phone,String password) {
+        int resultCount = userRepository.countByPhone(phone);
+        if (resultCount != 0) {
+            return ServerResponse.createByErrorMessage("用户已注册");
+        }
         User user=new User();
         user.setPhone(phone);
         user.setPwd(MD5Util.MD5EncodeUtf8(password));

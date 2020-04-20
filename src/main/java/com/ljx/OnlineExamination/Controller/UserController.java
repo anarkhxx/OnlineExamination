@@ -91,6 +91,9 @@ public class UserController {
                                         HttpSession session
     ){
         JSONObject userCode = (JSONObject)session.getAttribute("code");
+        if(!phone.equals(userCode.getString("phone"))){
+            return  ServerResponse.createByErrorMessage("手机号码错误");
+        }
         if(!vfcode.equals(userCode.getString("code"))){
             return  ServerResponse.createByErrorMessage("验证码错误");
         }
