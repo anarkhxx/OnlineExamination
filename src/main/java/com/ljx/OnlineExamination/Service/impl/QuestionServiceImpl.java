@@ -136,7 +136,6 @@ public class QuestionServiceImpl implements QuestionService {
         question.setImg(imgUrl);
 
         //标签
-
         if(addQuestionReq.getLabelname()!=null&&!addQuestionReq.getLabelname().equals(""))
         {
             Label label = labelRepository.findByLabelname(addQuestionReq.getLabelname());
