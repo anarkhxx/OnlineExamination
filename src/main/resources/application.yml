@@ -19,3 +19,7 @@ server:
     session:
       timeout: -1
   port: 8083
+file:
+  staticAccessPath: /images/**
+  #/root/img/
+  uploadFolder: /root/img/
