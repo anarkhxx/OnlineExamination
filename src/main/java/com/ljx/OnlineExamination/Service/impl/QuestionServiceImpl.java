@@ -128,20 +128,30 @@ public class QuestionServiceImpl implements QuestionService {
         question.setDifflevel(addQuestionReq.getDifflevel());
 
         //图片
-        String imgUrl = saveImg(addQuestionReq.getImg());
+        String imgUrl = null;
+        if(addQuestionReq.getImg()!=null)
+        {
+             imgUrl = saveImg(addQuestionReq.getImg());
+        }
         question.setImg(imgUrl);
 
         //标签
-        Label label = labelRepository.findByLabelname(addQuestionReq.getLabelname());
 
-        if(label==null)
+        if(addQuestionReq.getLabelname()!=null&&!addQuestionReq.getLabelname().equals(""))
         {
-            Label temp = new Label();
-            temp.setLabelname(addQuestionReq.getLabelname());
-            labelRepository.save(temp);
-            label = labelRepository.findByLabelname(addQuestionReq.getLabelname());
+            Label label = labelRepository.findByLabelname(addQuestionReq.getLabelname());
+            if(label==null)
+            {
+                Label temp = new Label();
+                temp.setLabelname(addQuestionReq.getLabelname());
+                labelRepository.save(temp);
+                label = labelRepository.findByLabelname(addQuestionReq.getLabelname());
+            }
+            question.setLabelid(label.getLabelid());
+
         }
-        question.setLabelid(label.getLabelid());
+        else question.setLabelid(null);
+
 
 
         questionRepository.save(question);
@@ -162,6 +172,11 @@ public class QuestionServiceImpl implements QuestionService {
 
     public String saveImg(MultipartFile file) {
         String deposeFilesDir = "/root/img/";
+
+        if(file == null || file.isEmpty())
+        {
+            return null;
+        }
 
         // 获取附件原名
         String fileName = file.getOriginalFilename();
@@ -200,7 +215,7 @@ public class QuestionServiceImpl implements QuestionService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return deposeFilesDir + fileName;
+        return fileName;
     }
 }
 

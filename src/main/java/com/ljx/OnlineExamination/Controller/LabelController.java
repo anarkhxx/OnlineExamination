@@ -17,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/label")
-
 public class LabelController {
     private final LabelService labelService;
     @Autowired
@@ -36,6 +35,7 @@ public class LabelController {
 
         return response;
     }
+
 
 
 }
