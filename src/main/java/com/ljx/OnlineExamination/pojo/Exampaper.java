@@ -18,7 +18,8 @@ import java.sql.Time;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ExamPaper {
+public class Exampaper {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pid;
@@ -33,6 +34,6 @@ public class ExamPaper {
     private Integer zgnum;
     private Integer tknum;
     private Integer totalpoints;
-    private String soap;
+    private String soup;
     private String note;
 }
