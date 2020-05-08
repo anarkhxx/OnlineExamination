@@ -1,10 +1,8 @@
 package com.ljx.OnlineExamination.Controller;
 
 import com.ljx.OnlineExamination.Service.LabelService;
-import com.ljx.OnlineExamination.common.Const;
 import com.ljx.OnlineExamination.common.ServerResponse;
 import com.ljx.OnlineExamination.pojo.Label;
-import com.ljx.OnlineExamination.pojo.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

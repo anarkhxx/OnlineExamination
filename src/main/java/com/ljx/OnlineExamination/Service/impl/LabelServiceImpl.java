@@ -29,10 +29,8 @@ public class LabelServiceImpl implements LabelService {
     @Override
     public ServerResponse getAll() {
 
-
         List<Label> list = new ArrayList<>();
         list = labelRepository.findAll();
-
 
         return ServerResponse.createBySuccess(list);
 

@@ -18,11 +18,10 @@ import java.sql.Time;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ExamPaper {
+public class Exampaper {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pid;
-
     private String pname;
     private Date examdate;
     private Time examtime;
