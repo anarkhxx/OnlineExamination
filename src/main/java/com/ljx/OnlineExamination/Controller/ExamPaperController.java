@@ -1,6 +1,6 @@
 package com.ljx.OnlineExamination.Controller;
 
-import com.ljx.OnlineExamination.Service.ExamPaperService;
+import com.ljx.OnlineExamination.Service.ExampaperService;
 import com.ljx.OnlineExamination.common.ServerResponse;
 import com.ljx.OnlineExamination.pojo.Paperquestion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ import java.util.List;
 @RestController
 @RequestMapping("api/exampaper")
 public class ExamPaperController {
-    private final ExamPaperService examPaperService;
+    private final ExampaperService exampaperService;
     @Autowired
-    public ExamPaperController(ExamPaperService examPaperService
+    public ExamPaperController(ExampaperService exampaperService
     ) {
 
-        this.examPaperService = examPaperService;
+        this.exampaperService = exampaperService;
     }
 
     //查看所有试卷名称
@@ -32,7 +32,7 @@ public class ExamPaperController {
     @ResponseBody
     public ServerResponse<List<String>> getAllPapersName(
     ){
-        ServerResponse<List<String>> response = examPaperService.getAllPapersName();
+        ServerResponse<List<String>> response = exampaperService.getAllPapersName();
 
         return response;
     }
@@ -43,7 +43,7 @@ public class ExamPaperController {
     public ServerResponse<List<Paperquestion>> getQuestionById(
             Integer id
     ){
-        ServerResponse<List<Paperquestion>> response = examPaperService.getQuestionById(id);
+        ServerResponse<List<Paperquestion>> response = exampaperService.getQuestionById(id);
 
         return response;
     }

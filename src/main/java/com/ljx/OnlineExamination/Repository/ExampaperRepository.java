@@ -14,7 +14,8 @@ import java.util.List;
  */
 @Repository
 public interface ExampaperRepository  extends JpaRepository<Exampaper,Integer>{
-
+    @Query(value="select pname from exampaper" ,nativeQuery=true)
+    List<String> findAllPname();
 }
 
 

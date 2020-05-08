@@ -49,7 +49,7 @@ public class ExampaperServiceImpl implements ExampaperService {
 
         paper.setTotalpoints(createPaperReq.getTotalPoints());
 
-        paper.setSoup(createPaperReq.getSoup());
+        paper.setSoap(createPaperReq.getSoup());
         paper.setNote(createPaperReq.getNote());
         exampaperRepository.save(paper);
 
@@ -118,5 +118,22 @@ public class ExampaperServiceImpl implements ExampaperService {
         return true;
 
     }
+
+    @Override
+    public ServerResponse getAllPapersName() {
+        List<String> list = new ArrayList<>();
+        list = exampaperRepository.findAllPname();
+        return ServerResponse.createBySuccess(list);
+    }
+
+    @Override
+    public ServerResponse getQuestionById(Integer id) {
+        List<Paperquestion> list = new ArrayList<>();
+        list = paperquestionRepository.findByPid(id);
+        return ServerResponse.createBySuccess(list);
+
+    }
+
+
 
 }
