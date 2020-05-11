@@ -4,6 +4,8 @@ import com.ljx.OnlineExamination.common.ServerResponse;
 import com.ljx.OnlineExamination.pojo.Exampaper;
 import com.ljx.OnlineExamination.pojo.Paperquestion;
 import com.ljx.OnlineExamination.req.CreatePaperReq;
+import com.ljx.OnlineExamination.req.ExampaperNameReq;
+import com.ljx.OnlineExamination.req.ExampaperTimeReq;
 
 import java.util.List;
 
@@ -14,7 +16,9 @@ import java.util.List;
 public interface ExampaperService {
     ServerResponse<Exampaper> create(CreatePaperReq createPaperReq);
 
-    ServerResponse<List<String>> getAllPapersName();
+    ServerResponse<List<ExampaperNameReq>> getAllPapersName();
 
-    ServerResponse<List<Paperquestion>> getQuestionById(Integer id);
+    ServerResponse<ExampaperTimeReq> getQuestionById(Integer id);
+
+
 }

@@ -32,6 +32,7 @@ public class Exampaper {
     private Integer zgnum;
     private Integer tknum;
     private Integer totalpoints;
-    private String soap;
+    private String soup;
     private String note;
+
 }

@@ -9,6 +9,8 @@ import com.ljx.OnlineExamination.pojo.Exampaper;
 import com.ljx.OnlineExamination.pojo.Paperquestion;
 import com.ljx.OnlineExamination.pojo.Question;
 import com.ljx.OnlineExamination.req.CreatePaperReq;
+import com.ljx.OnlineExamination.req.ExampaperNameReq;
+import com.ljx.OnlineExamination.req.ExampaperTimeReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +51,7 @@ public class ExampaperServiceImpl implements ExampaperService {
 
         paper.setTotalpoints(createPaperReq.getTotalPoints());
 
-        paper.setSoap(createPaperReq.getSoup());
+        paper.setSoup(createPaperReq.getSoup());
         paper.setNote(createPaperReq.getNote());
         exampaperRepository.save(paper);
 
@@ -121,8 +123,9 @@ public class ExampaperServiceImpl implements ExampaperService {
 
     @Override
     public ServerResponse getAllPapersName() {
-        List<String> list = new ArrayList<>();
-        list = exampaperRepository.findAllPname();
+        List<ExampaperNameReq> list = new ArrayList<>();
+        list = exampaperRepository.findAllName();
+
         return ServerResponse.createBySuccess(list);
     }
 
@@ -130,8 +133,16 @@ public class ExampaperServiceImpl implements ExampaperService {
     public ServerResponse getQuestionById(Integer id) {
         List<Paperquestion> list = new ArrayList<>();
         list = paperquestionRepository.findByPid(id);
-        return ServerResponse.createBySuccess(list);
+        Exampaper exampaper= new Exampaper();
+        exampaper=exampaperRepository.findOneByPid(id);
 
+        ExampaperTimeReq exampaperTimeReq=new ExampaperTimeReq();
+        exampaperTimeReq.setDuration(exampaper.getDuration());
+        exampaperTimeReq.setExamdate(exampaper.getExamdate());
+        exampaperTimeReq.setExamtime(exampaper.getExamtime());
+        exampaperTimeReq.setPaperquestion(list);
+
+        return ServerResponse.createBySuccess(exampaperTimeReq);
     }
 
 

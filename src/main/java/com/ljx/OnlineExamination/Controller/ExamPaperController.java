@@ -2,7 +2,10 @@ package com.ljx.OnlineExamination.Controller;
 
 import com.ljx.OnlineExamination.Service.ExampaperService;
 import com.ljx.OnlineExamination.common.ServerResponse;
+import com.ljx.OnlineExamination.pojo.Exampaper;
 import com.ljx.OnlineExamination.pojo.Paperquestion;
+import com.ljx.OnlineExamination.req.ExampaperNameReq;
+import com.ljx.OnlineExamination.req.ExampaperTimeReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +33,9 @@ public class ExamPaperController {
     //查看所有试卷名称
     @GetMapping("/getAllPapersName")
     @ResponseBody
-    public ServerResponse<List<String>> getAllPapersName(
+    public ServerResponse<List<ExampaperNameReq>> getAllPapersName(
     ){
-        ServerResponse<List<String>> response = exampaperService.getAllPapersName();
+        ServerResponse<List<ExampaperNameReq>> response = exampaperService.getAllPapersName();
 
         return response;
     }
@@ -40,10 +43,10 @@ public class ExamPaperController {
     //根据试卷id查试卷内容
     @GetMapping("/getQuestionById")
     @ResponseBody
-    public ServerResponse<List<Paperquestion>> getQuestionById(
+    public ServerResponse<ExampaperTimeReq> getQuestionById(
             Integer id
     ){
-        ServerResponse<List<Paperquestion>> response = exampaperService.getQuestionById(id);
+        ServerResponse<ExampaperTimeReq> response = exampaperService.getQuestionById(id);
 
         return response;
     }
