@@ -6,6 +6,7 @@ import com.ljx.OnlineExamination.pojo.Exampaper;
 import com.ljx.OnlineExamination.pojo.Paperquestion;
 import com.ljx.OnlineExamination.req.ExampaperNameReq;
 import com.ljx.OnlineExamination.req.ExampaperTimeReq;
+import com.ljx.OnlineExamination.req.StudentPaperReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,4 +52,14 @@ public class ExamPaperController {
         return response;
     }
 
+    //考生的查看考生所有试卷
+    @GetMapping("/getAllPapersNameByStudent")
+    @ResponseBody
+    public ServerResponse<List<StudentPaperReq>> getAllPapersNameByStudent(
+            Integer id
+    ){
+        ServerResponse<List<StudentPaperReq>> response = exampaperService.getAllPapersNameByStudent();
+
+        return response;
+    }
 }

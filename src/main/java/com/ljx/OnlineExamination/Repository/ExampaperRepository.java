@@ -2,6 +2,7 @@ package com.ljx.OnlineExamination.Repository;
 
 import com.ljx.OnlineExamination.pojo.Exampaper;
 import com.ljx.OnlineExamination.req.ExampaperNameReq;
+import com.ljx.OnlineExamination.req.StudentPaperReq;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,9 @@ public interface ExampaperRepository extends JpaRepository<Exampaper,Integer>{
     List<ExampaperNameReq> findAllName();
 
     Exampaper findOneByPid(Integer id);
+
+    @Query(value="select new com.ljx.OnlineExamination.req.StudentPaperReq(N.pid, N.pname,N.examtime,N.duration, N.note) from Exampaper N")
+    List<StudentPaperReq> findAllStudentPaper();
 }
 
 

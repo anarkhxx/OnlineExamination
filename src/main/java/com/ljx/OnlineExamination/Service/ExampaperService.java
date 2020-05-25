@@ -6,6 +6,7 @@ import com.ljx.OnlineExamination.pojo.Paperquestion;
 import com.ljx.OnlineExamination.req.CreatePaperReq;
 import com.ljx.OnlineExamination.req.ExampaperNameReq;
 import com.ljx.OnlineExamination.req.ExampaperTimeReq;
+import com.ljx.OnlineExamination.req.StudentPaperReq;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface ExampaperService {
     ServerResponse<List<ExampaperNameReq>> getAllPapersName();
 
     ServerResponse<ExampaperTimeReq> getQuestionById(Integer id);
+
+    ServerResponse<List<StudentPaperReq>> getAllPapersNameByStudent();
 
 
 }

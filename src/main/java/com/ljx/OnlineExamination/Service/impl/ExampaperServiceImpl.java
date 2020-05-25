@@ -11,6 +11,7 @@ import com.ljx.OnlineExamination.pojo.Question;
 import com.ljx.OnlineExamination.req.CreatePaperReq;
 import com.ljx.OnlineExamination.req.ExampaperNameReq;
 import com.ljx.OnlineExamination.req.ExampaperTimeReq;
+import com.ljx.OnlineExamination.req.StudentPaperReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -125,6 +126,15 @@ public class ExampaperServiceImpl implements ExampaperService {
     public ServerResponse getAllPapersName() {
         List<ExampaperNameReq> list = new ArrayList<>();
         list = exampaperRepository.findAllName();
+
+        return ServerResponse.createBySuccess(list);
+    }
+
+
+    @Override
+    public ServerResponse getAllPapersNameByStudent() {
+        List<StudentPaperReq> list = new ArrayList<>();
+        list = exampaperRepository.findAllStudentPaper();
 
         return ServerResponse.createBySuccess(list);
     }

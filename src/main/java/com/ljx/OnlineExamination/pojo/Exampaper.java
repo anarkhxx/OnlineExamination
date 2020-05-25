@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by lyy
@@ -34,5 +37,6 @@ public class Exampaper {
     private Integer totalpoints;
     private String soup;
     private String note;
+
 
 }
