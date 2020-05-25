@@ -17,19 +17,25 @@ import java.util.Date;
 public class StudentPaperReq implements Serializable {
     private Integer pid;
     private String pname;
+    private Date examdate;
     private Time examtime;
     private Integer duration;
+    private Integer totalpoints;
     private String note;
 
     public StudentPaperReq(Integer pid,
                      String pname,
-                     Object  examtime,
+                     Date examdate,
+                     Object examtime,
                      Integer duration,
+                     Integer totalpoints,
                      String note) {
         this.pid=pid;
         this.pname = pname;
+        this.examdate = examdate;
         this.examtime = stringToTime(examtime.toString());
         this.duration = duration;
+        this.totalpoints = totalpoints;
         this.note = note;
 
     }
@@ -50,5 +56,7 @@ public class StudentPaperReq implements Serializable {
         cal.setTime(new java.util.Date());
         return new Time(cal.getTimeInMillis());
     }
+
+
 
 }

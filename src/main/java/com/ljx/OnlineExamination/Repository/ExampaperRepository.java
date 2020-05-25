@@ -19,7 +19,7 @@ public interface ExampaperRepository extends JpaRepository<Exampaper,Integer>{
 
     Exampaper findOneByPid(Integer id);
 
-    @Query(value="select new com.ljx.OnlineExamination.req.StudentPaperReq(N.pid, N.pname,N.examtime,N.duration, N.note) from Exampaper N")
+    @Query(value="select new com.ljx.OnlineExamination.req.StudentPaperReq(N.pid, N.pname,N.examdate,N.examtime,N.duration,N.totalpoints, N.note) from Exampaper N")
     List<StudentPaperReq> findAllStudentPaper();
 }
 
